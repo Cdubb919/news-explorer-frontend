@@ -1,0 +1,60 @@
+.hero {
+  max-width: 608px;
+  margin-top: 120px;
+  text-align: center;
+  color: white;
+}
+
+.hero__title {
+  font-size: 60px;
+  line-height: 64px;
+  margin-bottom: 32px;
+}
+
+.hero__subtitle {
+  font-size: 18px;
+  margin-bottom: 64px;
+}
+
+.search-form {
+  display: flex;
+  background: white;
+  border-radius: 100px;
+  padding: 4px;
+}
+
+.search-form__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 16px 24px;
+  border-radius: 100px;
+}
+
+.search-form__button {
+  background: #2f71e5;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 16px 32px;
+  cursor: pointer;
+}
+
+.main {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("../../assets/MainpgpicNEApp.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+

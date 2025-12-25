@@ -1,0 +1,78 @@
+/* src/components/Header/Header.css */
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.header--dark {
+  background-color: #0a0b10;
+  color: #fff;
+}
+
+.header--light {
+  background-color: #ffffff;
+  color: #000;
+  border-bottom: 1px solid #e6e8eb;
+}
+
+.header__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  font-family: "Roboto Slab", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header__link {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+  padding-bottom: 6px;
+}
+
+.header__link--active {
+  border-bottom: 2px solid currentColor;
+}
+
+.header__signin {
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1px solid currentColor;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid currentColor;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header__logout-icon {
+  font-size: 14px;
+}
