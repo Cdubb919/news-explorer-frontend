@@ -1,4 +1,5 @@
 import "./Header.css";
+import logoutIcon from "../../assets/logout.svg";
 
 function Header({ loggedIn, userName, onSignIn, onSignOut }) {
   return (
@@ -14,8 +15,16 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
               <button className="header__link">Saved articles</button>
 
               <button className="header__user" onClick={onSignOut}>
-                {userName}
-                <span className="header__logout-icon">↗</span>
+                <span className="header__username">
+                  USER: {String(userName)}
+                </span>
+
+                {/* <span className="header__username">{userName}</span> */}
+                <img
+                  src={logoutIcon}
+                  alt="Log out"
+                  className="header__logout-icon"
+                />
               </button>
             </>
           ) : (

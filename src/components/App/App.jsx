@@ -19,6 +19,11 @@ function App() {
     setActiveModal(null);
   }
 
+  function handleLogin() {
+    setIsLoggedIn(true);
+    closeModal();
+  }
+
   function handleLogout() {
     setIsLoggedIn(false);
   }
@@ -45,6 +50,7 @@ function App() {
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={closeModal}
+        onLogin={handleLogin}          
         onSwitchToRegister={() => setActiveModal("register")}
       />
 
