@@ -1,16 +1,34 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
+function RegisterModal({ isOpen, onClose, onSwitchToLogin, onRegisterSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const isFormValid = email && password.length >= 8 && name.length >= 2;
+  const [emailError, setEmailError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  const isFormValid =
+    email &&
+    password.length >= 8 &&
+    name.length >= 2 &&
+    !emailError;
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log({ email, password, name });
+    setSubmitError("");
+
+    if (email === "taken@email.com") {
+      setSubmitError("This email is not available");
+      return;
+    }
+
+    onRegisterSuccess();
   }
 
   return (
@@ -30,9 +48,22 @@ function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
           type="email"
           className="modal__input"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            setEmail(value);
+
+            if (!isValidEmail(value)) {
+              setEmailError("Invalid email address");
+            } else {
+              setEmailError("");
+            }
+          }}
+          placeholder="Enter email"
           required
         />
+        {emailError && (
+          <span className="modal__error">{emailError}</span>
+        )}
       </label>
 
       <label className="modal__field">
@@ -43,6 +74,7 @@ function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
           className="modal__input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter password"
           required
         />
       </label>
@@ -56,12 +88,18 @@ function RegisterModal({ isOpen, onClose, onSwitchToLogin }) {
           maxLength="30"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Enter your username"
           required
         />
       </label>
+
+      {submitError && (
+        <span className="modal__error modal__error_centered">
+          {submitError}
+        </span>
+      )}
     </ModalWithForm>
   );
 }
 
 export default RegisterModal;
-

@@ -1,7 +1,5 @@
 import "./Preloader.css";
 
-import "./Preloader.css";
-
 function Preloader() {
   return (
     <div className="preloader">

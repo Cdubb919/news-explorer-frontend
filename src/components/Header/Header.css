@@ -62,7 +62,7 @@
 .header__user {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 8px 16px;
   border-radius: 100px;
   border: 1px solid currentColor;
@@ -73,6 +73,8 @@
 
 .header__username {
   font-weight: 500;
+  color: inherit;
+  white-space: nowrap;
 }
 
 .header__logout-icon {

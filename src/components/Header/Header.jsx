@@ -1,7 +1,11 @@
+import { NavLink, useLocation } from "react-router-dom";
 import "./Header.css";
 import logoutIcon from "../../assets/logout.svg";
 
 function Header({ loggedIn, userName, onSignIn, onSignOut }) {
+  const location = useLocation();
+  const isSavedNews = location.pathname === "/saved-news";
+
   return (
     <header className={`header ${loggedIn ? "header--light" : "header--dark"}`}>
       <div className="header__container">

@@ -9,6 +9,8 @@ import SavedNews from "../SavedNews/SavedNews";
 
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import SuccessModal from "../SuccessModal/SuccessModal"; 
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +30,11 @@ function App() {
     setIsLoggedIn(false);
   }
 
+    function handleRegisterSuccess() {
+  closeModal();
+  setActiveModal("success");
+}
+
   return (
     <>
       <Header
@@ -42,7 +49,16 @@ function App() {
           path="/"
           element={<Home onSearch={() => setHasSearched(true)} />}
         />
-        <Route path="/saved-news" element={<SavedNews />} />
+        <Route
+          path="/saved-news"
+          element={
+            <SavedNews
+              loggedIn={isLoggedIn}
+              userName="Elise"
+              savedArticles={[]}
+            />
+          }
+        />
       </Routes>
 
       {hasSearched && <Footer />}
@@ -50,7 +66,7 @@ function App() {
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={closeModal}
-        onLogin={handleLogin}          
+        onLogin={handleLogin}
         onSwitchToRegister={() => setActiveModal("register")}
       />
 
@@ -58,6 +74,13 @@ function App() {
         isOpen={activeModal === "register"}
         onClose={closeModal}
         onSwitchToLogin={() => setActiveModal("login")}
+        onRegisterSuccess={handleRegisterSuccess}
+      />
+
+      <SuccessModal
+        isOpen={activeModal === "success"}
+        onClose={closeModal}
+        onSignIn={() => setActiveModal("login")}
       />
     </>
   );

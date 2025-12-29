@@ -1,18 +1,17 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./SuccessModal.css";
 
 function SuccessModal({ isOpen, onClose, onSignIn }) {
   return (
     <ModalWithForm
       title="Registration successfully completed!"
       name="success"
-      buttonText="Sign in"
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSignIn();
-      }}
     >
+      <p className="success__signin" onClick={onSignIn}>
+        Sign in
+      </p>
     </ModalWithForm>
   );
 }

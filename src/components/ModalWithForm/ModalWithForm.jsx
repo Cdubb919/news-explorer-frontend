@@ -55,13 +55,15 @@ function ModalWithForm({
           >
             {children}
 
-            <button
-              type="submit"
-              className="modal__submit"
-              disabled={!isValid}
-            >
-              {buttonText}
-            </button>
+            {buttonText && (
+              <button
+                type="submit"
+                className="modal__submit"
+                disabled={!isValid}
+              >
+                {buttonText}
+              </button>
+            )}
 
             {switchToSignUp && (
               <p className="modal__switch">
@@ -83,4 +85,3 @@ function ModalWithForm({
 }
 
 export default ModalWithForm;
-

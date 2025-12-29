@@ -4,6 +4,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 function LoginModal({ isOpen, onClose, onLogin, onSwitchToRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const isFormFilled = email.trim() && password.trim();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +19,7 @@ function LoginModal({ isOpen, onClose, onLogin, onSwitchToRegister }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isValid={isFormFilled}
       switchToSignUp={onSwitchToRegister}
     >
       <label className="modal__field">
@@ -27,6 +29,7 @@ function LoginModal({ isOpen, onClose, onLogin, onSwitchToRegister }) {
           className="modal__input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter email"
           required
         />
       </label>
@@ -38,6 +41,7 @@ function LoginModal({ isOpen, onClose, onLogin, onSwitchToRegister }) {
           className="modal__input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter password"
           required
         />
       </label>
