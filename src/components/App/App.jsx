@@ -6,11 +6,11 @@ import Footer from "../Footer/Footer";
 
 import Home from "../Home/Home";
 import SavedNews from "../SavedNews/SavedNews";
+import "./App.css";
 
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
-import SuccessModal from "../SuccessModal/SuccessModal"; 
-
+import SuccessModal from "../SuccessModal/SuccessModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,33 +30,48 @@ function App() {
     setIsLoggedIn(false);
   }
 
-    function handleRegisterSuccess() {
-  closeModal();
-  setActiveModal("success");
-}
+  function handleRegisterSuccess() {
+    closeModal();
+    setActiveModal("success");
+  }
 
   return (
     <>
-      <Header
-        loggedIn={isLoggedIn}
-        userName="Elise"
-        onSignIn={() => setActiveModal("login")}
-        onSignOut={handleLogout}
-      />
-
       <Routes>
         <Route
           path="/"
-          element={<Home onSearch={() => setHasSearched(true)} />}
+          element={
+            <div className="hero-layout">
+              <Header
+                loggedIn={isLoggedIn}
+                userName="Elise"
+                onSignIn={() => setActiveModal("login")}
+                onSignOut={handleLogout}
+              />
+
+              <Home onSearch={() => setHasSearched(true)} />
+            </div>
+          }
         />
+
         <Route
           path="/saved-news"
           element={
-            <SavedNews
-              loggedIn={isLoggedIn}
-              userName="Elise"
-              savedArticles={[]}
-            />
+            <>
+              <Header
+                loggedIn={isLoggedIn}
+                userName="Elise"
+                isHome={true}
+                onSignIn={() => setActiveModal("login")}
+                onSignOut={handleLogout}
+              />
+
+              <SavedNews
+                loggedIn={isLoggedIn}
+                userName="Elise"
+                savedArticles={[]}
+              />
+            </>
           }
         />
       </Routes>

@@ -4,10 +4,18 @@ import logoutIcon from "../../assets/logout.svg";
 
 function Header({ loggedIn, userName, onSignIn, onSignOut }) {
   const location = useLocation();
-  const isSavedNews = location.pathname === "/saved-news";
+  const isHome = location.pathname === "/";
 
   return (
-    <header className={`header ${loggedIn ? "header--light" : "header--dark"}`}>
+    <header
+      className={`header ${
+        isHome
+          ? "header--transparent"
+          : loggedIn
+          ? "header--light"
+          : "header--dark"
+      }`}
+    >
       <div className="header__container">
         <h1 className="header__logo">NewsExplorer</h1>
 
@@ -19,11 +27,8 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
               <button className="header__link">Saved articles</button>
 
               <button className="header__user" onClick={onSignOut}>
-                <span className="header__username">
-                  USER: {String(userName)}
-                </span>
+                <span className="header__username">{String(userName)}</span>
 
-                {/* <span className="header__username">{userName}</span> */}
                 <img
                   src={logoutIcon}
                   alt="Log out"

@@ -24,6 +24,12 @@
   align-items: center;
 }
 
+.header--transparent {
+  background: transparent;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .header__logo {
   font-family: "Roboto Slab", serif;
   font-size: 20px;
@@ -71,9 +77,17 @@
   cursor: pointer;
 }
 
+.header--dark .header__user,
+.header--dark .header__signin,
+.header--transparent .header__user,
+.header--transparent .header__signin {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
 .header__username {
   font-weight: 500;
-  color: inherit;
+  color: #ffffff;
   white-space: nowrap;
 }
 
@@ -81,5 +95,5 @@
   width: 18px;         
   height: 18px;      
   object-fit: contain;
-  fill: currentColor;
+  filter: brightness(0) invert(1);
 }
