@@ -2,7 +2,13 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
 import "./SearchResults.css";
 
-function SearchResults({ articles, isLoading, apiError, isLoggedIn, onShowMore }) {
+function SearchResults({
+  articles,
+  isLoading,
+  apiError,
+  isLoggedIn,
+  onShowMore,
+}) {
   return (
     <section className="search-results">
       {isLoading && <Preloader />}

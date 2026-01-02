@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 import notFoundImg from "../../assets/not-found_v1.png";
 import "./Home.css";
 
-function Home({ onSearch }) {
+function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState("");
   const [articles, setArticles] = useState([]);
@@ -109,7 +109,12 @@ function Home({ onSearch }) {
           <div className="search-results__content">
             <h2 className="search-results__title">Search results</h2>
 
-            <NewsCardList articles={visibleArticles} />
+            <NewsCardList
+              articles={visibleArticles}
+              loggedIn={loggedIn}
+              savedArticles={savedArticles}
+              onSaveArticle={onSaveArticle}
+            />
 
             {visibleCount < articles.length && (
               <button className="show-more-button" onClick={handleShowMore}>

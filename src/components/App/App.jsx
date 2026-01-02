@@ -16,6 +16,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [savedArticles, setSavedArticles] = useState([]);
 
   function closeModal() {
     setActiveModal(null);
@@ -35,6 +36,24 @@ function App() {
     setActiveModal("success");
   }
 
+  function handleSaveArticle(article) {
+    setSavedArticles((prev) => {
+      const alreadySaved = prev.some((item) => item.title === article.title);
+
+      if (alreadySaved) {
+        return prev;
+      }
+
+      return [...prev, article];
+    });
+  }
+
+  function handleRemoveArticle(article) {
+    setSavedArticles((prev) =>
+      prev.filter((item) => item.title !== article.title)
+    );
+  }
+
   return (
     <>
       <Routes>
@@ -49,7 +68,12 @@ function App() {
                 onSignOut={handleLogout}
               />
 
-              <Home onSearch={() => setHasSearched(true)} />
+              <Home
+                onSearch={() => setHasSearched(true)}
+                loggedIn={isLoggedIn}
+                onSaveArticle={handleSaveArticle}
+                savedArticles={savedArticles}
+              />
             </div>
           }
         />
@@ -69,7 +93,8 @@ function App() {
               <SavedNews
                 loggedIn={isLoggedIn}
                 userName="Elise"
-                savedArticles={[]}
+                savedArticles={savedArticles}
+                onRemoveArticle={handleRemoveArticle}
               />
             </>
           }
