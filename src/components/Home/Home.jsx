@@ -4,15 +4,17 @@ import Main from "../Main/Main";
 import About from "../About/About";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
+import notFoundImg from "../../assets/not-found_v1.png";
 import "./Home.css";
 
-function Home() {
+function Home({ onSearch }) {
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState("");
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState("");
   const [visibleCount, setVisibleCount] = useState(3);
+  const [keywordSubmitted, setKeywordSubmitted] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,6 +23,9 @@ function Home() {
       setError("Please enter a keyword");
       return;
     }
+
+    setKeywordSubmitted(true);
+    onSearch();
 
     setError("");
     setApiError("");
@@ -32,8 +37,7 @@ function Home() {
       .then((data) => {
         setArticles(data.articles || []);
       })
-      .catch((err) => {
-        console.error("News API error:", err);
+      .catch(() => {
         setApiError(
           "Sorry, something went wrong during the request. Please try again later."
         );
@@ -49,13 +53,12 @@ function Home() {
 
   const visibleArticles = articles.slice(0, visibleCount);
 
-   return (
+  return (
     <>
       <Main>
         <section className="hero">
           <div className="hero__content">
             <h1 className="hero__title">What's going on in the world?</h1>
-
             <p className="hero__subtitle">
               Find the latest news on any topic and save them in your personal
               account.
@@ -69,39 +72,53 @@ function Home() {
               placeholder="Enter topic"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
+              required
             />
 
-            <button
-              className="search-form__button"
-              type="submit"
-              disabled={!keyword.trim()}
-            >
+            <button className="search-form__button" type="submit">
               Search
             </button>
           </form>
 
           {error && <p className="search__error">{error}</p>}
         </section>
+      </Main>
 
-        {isLoading && <Preloader />}
+      {isLoading && <Preloader />}
 
-        {apiError && <p className="search__error">{apiError}</p>}
+      {apiError && <p className="search__error">{apiError}</p>}
 
-        {!isLoading && articles.length === 0 && !error && !apiError && (
-          <p className="search__error">Nothing Found</p>
-        )}
+      {!isLoading && articles.length === 0 && keywordSubmitted && (
+        <section className="search-results">
+          <div className="search-results__content no-results">
+            <img
+              src={notFoundImg}
+              alt="Nothing found"
+              className="no-results__image"
+            />
+            <h2 className="no-results__title">Nothing found</h2>
+            <p className="no-results__subtitle">
+              Sorry, but nothing matched your search terms.
+            </p>
+          </div>
+        </section>
+      )}
 
-        {!isLoading && visibleArticles.length > 0 && (
-          <>
+      {!isLoading && visibleArticles.length > 0 && (
+        <section className="search-results">
+          <div className="search-results__content">
+            <h2 className="search-results__title">Search results</h2>
+
             <NewsCardList articles={visibleArticles} />
+
             {visibleCount < articles.length && (
               <button className="show-more-button" onClick={handleShowMore}>
                 Show more
               </button>
             )}
-          </>
-        )}
-      </Main>
+          </div>
+        </section>
+      )}
 
       <About />
     </>

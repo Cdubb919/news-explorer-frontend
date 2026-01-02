@@ -76,7 +76,7 @@ function App() {
         />
       </Routes>
 
-      {hasSearched && <Footer />}
+      <Footer />
 
       <LoginModal
         isOpen={activeModal === "login"}

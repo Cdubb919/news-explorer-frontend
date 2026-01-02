@@ -90,3 +90,124 @@
   font-size: 14px;
   color: #ff0000;
 }
+
+.search-results {
+  max-width: 100%;
+  margin: 80px auto 0;
+  padding: 0 40px;
+  background-color: #ffffff;
+  padding: 80px 0 80px;
+}
+
+.search-results__title {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1a1b22;
+  margin-bottom: 64px;
+}
+
+.search-results__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.show-more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 288px;
+  height: 64px;
+  margin: 64px auto 0;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 80px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.show-more-button:hover {
+  opacity: 0.8;
+}
+
+.search-form {
+  width: 100%;
+  max-width: 608px;
+  margin: 0 auto;
+  display: flex;
+  /* align-items: stretch; */
+  background-color: #ffffff;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.search-form__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 16px 24px;
+  font-size: 16px;
+  background-color: transparent;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+}
+
+.search-form__input::placeholder {
+  color: #b6bcbf;
+}
+
+.search-form__button {
+  min-width: 168px;
+  padding: 16px 32px;
+  border: none;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  background-color: #2f71e5;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  background-color: #347eff;
+}
+
+.search-form__button:active {
+  background-color: #2a65cc;
+}
+
+.search-form__button:disabled {
+  background-color: #e6e8eb;
+  color: #b6bcbf;
+  cursor: not-allowed;
+}
+
+.no-results {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.no-results__image {
+  width: 74px;
+  height: 74px;
+  margin-bottom: 32px;
+}
+
+.no-results__title {
+  font-family: "Roboto Slab", serif;
+  font-size: 24px;
+  line-height: 28px;
+  color: #1a1b22;
+  margin-bottom: 16px;
+}
+
+.no-results__subtitle {
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}

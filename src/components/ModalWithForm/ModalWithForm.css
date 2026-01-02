@@ -62,6 +62,7 @@
   font-weight: 500;
   cursor: not-allowed;
   transition: background-color 0.2s ease, color 0.2s ease;
+  align-self: center;
 }
 
 .modal__submit:not(:disabled) {

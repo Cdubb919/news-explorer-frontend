@@ -1,0 +1,7 @@
+.news-card-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1232px;
+  margin: 64px auto 0;
+}
