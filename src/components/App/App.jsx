@@ -1,4 +1,134 @@
-import { useState } from "react";
+// import { useState } from "react";
+// import { Routes, Route } from "react-router-dom";
+
+// import Header from "../Header/Header";
+// import Footer from "../Footer/Footer";
+
+// import Home from "../Home/Home";
+// import SavedNews from "../SavedNews/SavedNews";
+// import "./App.css";
+
+// import LoginModal from "../LoginModal/LoginModal";
+// import RegisterModal from "../RegisterModal/RegisterModal";
+// import SuccessModal from "../SuccessModal/SuccessModal";
+
+// function App() {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [activeModal, setActiveModal] = useState(null);
+//   const [hasSearched, setHasSearched] = useState(false);
+//   const [savedArticles, setSavedArticles] = useState([]);
+
+//   function closeModal() {
+//     setActiveModal(null);
+//   }
+
+//   function handleLogin() {
+//     setIsLoggedIn(true);
+//     closeModal();
+//   }
+
+//   function handleLogout() {
+//     setIsLoggedIn(false);
+//   }
+
+//   function handleRegisterSuccess() {
+//     closeModal();
+//     setActiveModal("success");
+//   }
+
+//   function handleSaveArticle(article) {
+//     setSavedArticles((prev) => {
+//       const alreadySaved = prev.some((item) => item.title === article.title);
+
+//       if (alreadySaved) {
+//         return prev;
+//       }
+
+//       return [...prev, article];
+//     });
+//   }
+
+//   function handleRemoveArticle(article) {
+//     setSavedArticles((prev) =>
+//       prev.filter((item) => item.title !== article.title)
+//     );
+//   }
+
+//   return (
+//     <>
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={
+//             <div className="hero-layout">
+//               <Header
+//                 loggedIn={isLoggedIn}
+//                 userName="Elise"
+//                 onSignIn={() => setActiveModal("login")}
+//                 onSignOut={handleLogout}
+//               />
+
+//               <Home
+//                 onSearch={() => setHasSearched(true)}
+//                 loggedIn={isLoggedIn}
+//                 onSaveArticle={handleSaveArticle}
+//                 savedArticles={savedArticles}
+//               />
+//             </div>
+//           }
+//         />
+
+//         <Route
+//           path="/saved-news"
+//           element={
+//             <>
+//               <Header
+//                 loggedIn={isLoggedIn}
+//                 userName="Elise"
+//                 isHome={true}
+//                 onSignIn={() => setActiveModal("login")}
+//                 onSignOut={handleLogout}
+//               />
+
+//               <SavedNews
+//                 loggedIn={isLoggedIn}
+//                 userName="Elise"
+//                 savedArticles={savedArticles}
+//                 onRemoveArticle={handleRemoveArticle}
+//               />
+//             </>
+//           }
+//         />
+//       </Routes>
+
+//       <Footer />
+
+//       <LoginModal
+//         isOpen={activeModal === "login"}
+//         onClose={closeModal}
+//         onLogin={handleLogin}
+//         onSwitchToRegister={() => setActiveModal("register")}
+//       />
+
+//       <RegisterModal
+//         isOpen={activeModal === "register"}
+//         onClose={closeModal}
+//         onSwitchToLogin={() => setActiveModal("login")}
+//         onRegisterSuccess={handleRegisterSuccess}
+//       />
+
+//       <SuccessModal
+//         isOpen={activeModal === "success"}
+//         onClose={closeModal}
+//         onSignIn={() => setActiveModal("login")}
+//       />
+//     </>
+//   );
+// }
+
+// export default App;
+
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "../Header/Header";
@@ -17,17 +147,38 @@ function App() {
   const [activeModal, setActiveModal] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
+  const [userName, setUserName] = useState("Elise"); // default username
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("userName");
+    const storedArticles = localStorage.getItem("savedArticles");
+
+    if (token) {
+      setIsLoggedIn(true);
+      if (storedUser) setUserName(storedUser);
+      if (storedArticles) setSavedArticles(JSON.parse(storedArticles));
+    }
+  }, []);
 
   function closeModal() {
     setActiveModal(null);
   }
 
   function handleLogin() {
+    const token = "dummy-token";
+    localStorage.setItem("token", token);
+    localStorage.setItem("userName", userName);
+
     setIsLoggedIn(true);
     closeModal();
   }
 
   function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("savedArticles");
+
     setIsLoggedIn(false);
   }
 
@@ -40,18 +191,20 @@ function App() {
     setSavedArticles((prev) => {
       const alreadySaved = prev.some((item) => item.title === article.title);
 
-      if (alreadySaved) {
-        return prev;
-      }
+      if (alreadySaved) return prev;
 
-      return [...prev, article];
+      const updated = [...prev, article];
+      localStorage.setItem("savedArticles", JSON.stringify(updated));
+      return updated;
     });
   }
 
   function handleRemoveArticle(article) {
-    setSavedArticles((prev) =>
-      prev.filter((item) => item.title !== article.title)
-    );
+    setSavedArticles((prev) => {
+      const updated = prev.filter((item) => item.title !== article.title);
+      localStorage.setItem("savedArticles", JSON.stringify(updated));
+      return updated;
+    });
   }
 
   return (
@@ -63,7 +216,7 @@ function App() {
             <div className="hero-layout">
               <Header
                 loggedIn={isLoggedIn}
-                userName="Elise"
+                userName={userName}
                 onSignIn={() => setActiveModal("login")}
                 onSignOut={handleLogout}
               />
@@ -84,7 +237,7 @@ function App() {
             <>
               <Header
                 loggedIn={isLoggedIn}
-                userName="Elise"
+                userName={userName}
                 isHome={true}
                 onSignIn={() => setActiveModal("login")}
                 onSignOut={handleLogout}
@@ -92,7 +245,7 @@ function App() {
 
               <SavedNews
                 loggedIn={isLoggedIn}
-                userName="Elise"
+                userName={userName}
                 savedArticles={savedArticles}
                 onRemoveArticle={handleRemoveArticle}
               />
@@ -127,3 +280,4 @@ function App() {
 }
 
 export default App;
+

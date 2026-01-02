@@ -9,26 +9,35 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
   return (
     <header
       className={`header ${
-        isHome
-          ? "header--transparent"
-          : loggedIn
-          ? "header--light"
-          : "header--dark"
+        isHome ? "header--transparent" : "header--light"
       }`}
     >
       <div className="header__container">
         <h1 className="header__logo">NewsExplorer</h1>
 
         <nav className="header__nav">
-          <button className="header__link header__link--active">Home</button>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `header__link ${isActive ? "header__link--active" : ""}`
+            }
+          >
+            Home
+          </NavLink>
 
           {loggedIn ? (
             <>
-              <button className="header__link">Saved articles</button>
+              <NavLink
+                to="/saved-news"
+                className={({ isActive }) =>
+                  `header__link ${isActive ? "header__link--active" : ""}`
+                }
+              >
+                Saved articles
+              </NavLink>
 
               <button className="header__user" onClick={onSignOut}>
-                <span className="header__username">{String(userName)}</span>
-
+                <span className="header__username">{userName}</span>
                 <img
                   src={logoutIcon}
                   alt="Log out"
@@ -48,3 +57,4 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
 }
 
 export default Header;
+

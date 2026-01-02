@@ -85,9 +85,16 @@
   color: #ffffff;
 }
 
+.header--light .header__username {
+  color: #000;
+}
+
+.header--light .header__logout-icon {
+  filter: none;
+}
+
 .header__username {
   font-weight: 500;
-  color: #ffffff;
   white-space: nowrap;
 }
 
