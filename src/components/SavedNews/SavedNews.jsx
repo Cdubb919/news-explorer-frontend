@@ -1,37 +1,61 @@
-import React from "react";
 import "./SavedNews.css";
+import NewsCardList from "../NewsCardList/NewsCardList";
 
-function SavedNews({ loggedIn, userName, savedArticles }) {
-  if (!loggedIn) return null; 
+function SavedNews({ loggedIn, userName, savedArticles = [], onRemoveArticle }) {
+  if (!loggedIn) return null;
+
+  const keywords = Array.from(
+    new Set(
+      savedArticles
+        .map(
+          (a) =>
+            a.keyword ||
+            a.tag ||
+            a.searchKeyword ||
+            a.searchTerm ||
+            a.category ||
+            ""
+        )
+        .filter(Boolean)
+        .map((k) => String(k).trim())
+    )
+  );
+
+  let keywordsText = "";
+  if (keywords.length === 1) keywordsText = keywords[0];
+  else if (keywords.length === 2) keywordsText = `${keywords[0]}, ${keywords[1]}`;
+  else if (keywords.length > 2)
+    keywordsText = `${keywords[0]}, ${keywords[1]}, and ${keywords.length - 2} other${
+      keywords.length - 2 === 1 ? "" : "s"
+    }`;
 
   return (
     <section className="saved-news">
       <div className="saved-news__header">
-        <h2 className="saved-news__title">Saved articles</h2>
-        <p className="saved-news__subtitle">
+        <p className="saved-news__label">Saved articles</p>
+        <h2 className="saved-news__title">
           {userName}, you have {savedArticles.length} saved articles
-        </p>
+        </h2>
+        {keywordsText && (
+          <p className="saved-news__keywords">
+            By keywords:{" "}
+            <span className="saved-news__keywords-bold">{keywordsText}</span>
+          </p>
+        )}
       </div>
 
-      <div className="saved-news__grid">
-        {savedArticles.map((article, index) => (
-          <div key={index} className="saved-news__card">
-            <img
-              src={article.image}
-              alt={article.title}
-              className="saved-news__image"
-            />
-            <div className="saved-news__content">
-              <span className="saved-news__tag">{article.tag}</span>
-              <h3 className="saved-news__headline">{article.title}</h3>
-              <p className="saved-news__description">{article.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <NewsCardList
+        articles={savedArticles}
+        loggedIn={loggedIn}
+        savedArticles={savedArticles}
+        onRemoveArticle={onRemoveArticle}
+        isSavedPage={true}
+      />
     </section>
   );
 }
 
 export default SavedNews;
+
+
 

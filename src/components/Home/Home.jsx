@@ -114,6 +114,7 @@ function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
               loggedIn={loggedIn}
               savedArticles={savedArticles}
               onSaveArticle={onSaveArticle}
+              currentKeyword={keyword}
             />
 
             {visibleCount < articles.length && (
