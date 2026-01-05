@@ -1,20 +1,35 @@
 import { NavLink, useLocation } from "react-router-dom";
+import { useState } from "react";
 import "./Header.css";
 import logoutIcon from "../../assets/logout.svg";
 
 function Header({ loggedIn, userName, onSignIn, onSignOut }) {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
+  function handleSignIn() {
+    closeMenu();
+    onSignIn?.();
+  }
+
+  function handleSignOut() {
+    closeMenu();
+    onSignOut?.();
+  }
 
   return (
     <header
-      className={`header ${
-        isHome ? "header--transparent" : "header--light"
-      }`}
+      className={`header ${isHome ? "header--transparent" : "header--light"}`}
     >
       <div className="header__container">
         <h1 className="header__logo">NewsExplorer</h1>
 
+        {/* Desktop nav (hidden on mobile via CSS) */}
         <nav className="header__nav">
           <NavLink
             to="/"
@@ -51,6 +66,66 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
             </button>
           )}
         </nav>
+
+        {/* Mobile hamburger (shown on mobile via CSS) */}
+        <button
+          type="button"
+          className="header__menu-button"
+          aria-label="Open menu"
+          onClick={() => setMenuOpen(true)}
+        />
+
+        {/* Mobile overlay menu */}
+        <div className={`header__mobile ${menuOpen ? "header__mobile_open" : ""}`}>
+          <div className="header__mobile-top">
+            <h1 className="header__logo">NewsExplorer</h1>
+            <button
+              type="button"
+              className="header__close-button"
+              aria-label="Close menu"
+              onClick={closeMenu}
+            />
+          </div>
+
+          <nav className="header__mobile-nav">
+            <NavLink
+              to="/"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `header__mobile-link ${isActive ? "header__mobile-link_active" : ""}`
+              }
+            >
+              Home
+            </NavLink>
+
+            {loggedIn && (
+              <NavLink
+                to="/saved-news"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  `header__mobile-link ${isActive ? "header__mobile-link_active" : ""}`
+                }
+              >
+                Saved articles
+              </NavLink>
+            )}
+
+            {loggedIn ? (
+              <button className="header__mobile-user" onClick={handleSignOut}>
+                <span className="header__username">{userName}</span>
+                <img
+                  src={logoutIcon}
+                  alt="Log out"
+                  className="header__logout-icon"
+                />
+              </button>
+            ) : (
+              <button className="header__mobile-signin" onClick={handleSignIn}>
+                Sign in
+              </button>
+            )}
+          </nav>
+        </div>
       </div>
     </header>
   );

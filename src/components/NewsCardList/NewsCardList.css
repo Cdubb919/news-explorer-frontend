@@ -5,3 +5,12 @@
   max-width: 1232px;
   margin: 64px auto 0;
 }
+
+@media screen and (max-width: 767px) {
+  .news-card-list {
+    grid-template-columns: 1fr;
+    margin: 24px auto 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+}

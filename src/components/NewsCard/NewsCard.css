@@ -104,3 +104,29 @@
   padding: 6px 12px;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 767px) {
+  .news-card {
+    max-width: 288px;
+    margin: 0 auto;
+  }
+
+  .news-card__image {
+    height: 196px; /* closer to screenshot crop */
+  }
+
+  .news-card__content {
+    padding: 16px;
+  }
+
+  .news-card__title {
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 10px;
+  }
+
+  .news-card__text {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
