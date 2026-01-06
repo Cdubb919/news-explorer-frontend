@@ -1,6 +1,6 @@
 {
-  "name": "new-explorer-app",
-  "homepage": "https://cdubb919.github.io/new-explorer-app/",
+  "name": "news-explorer-frontend",
+  "homepage": "https://cdubb919.github.io/news-explorer-frontend/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
