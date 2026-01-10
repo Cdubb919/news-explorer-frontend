@@ -1,13 +1,23 @@
 .hero {
-  margin-top: 80px;
-  padding-bottom: 64px;
+  width: 100%;
+  min-height: 576px;
+  background-image: url("../../assets/mainpicnea.svg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  display: flex;
+  align-items: center;
   color: #fff;
-  text-align: center;
+  padding: 0;
 }
 
 .hero__content {
+  width: 100%;
   max-width: 608px;
-  margin: 0 auto 64px;
+  margin: 0 auto;
+  padding: 0 16px;
+  text-align: center;
+  color: #fff;
 }
 
 .hero__title {
@@ -23,70 +33,92 @@
   margin-bottom: 64px;
 }
 
-/* FIX: remove invalid nested block and apply color-scheme correctly */
-.search,
-.search-form,
-.search__input,
-.search__button,
-.search-form__input,
-.search-form__button {
-  color-scheme: light;
-}
-
-.search {
+.search-form {
   width: 100%;
   max-width: 608px;
   margin: 0 auto;
   display: flex;
   align-items: center;
+
+  background: transparent;     /* important */
+  border-radius: 0;            /* not a single pill container anymore */
+  overflow: visible;           /* important */
+  gap: 8px;                    /* creates space so left rounding shows */
+  height: auto;
+}
+
+/* DESKTOP/TABLET: no internal white padding, button flush inside pill */
+.search-form {
+  width: 100%;
+  max-width: 608px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+
+  height: 64px;
+  padding: 0;                 /* removes the white “frame” */
   background-color: #ffffff;
   border-radius: 100px;
-  padding: 4px;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
-.search__input {
-  background-color: #ffffff !important;
-  color: #000;
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
+.search-form__input {
+  flex: 1;
+  height: 64px;               /* match container height */
   border: none;
   outline: none;
-  appearance: none;
-  -webkit-appearance: none;
+
+  padding: 0 24px;
+  font-size: 16px;
+
+  background: transparent;    /* container provides the white */
+  border-radius: 100px;       /* keeps left side pill-smooth */
 }
 
-.search__input:focus {
-  outline: none;
-  box-shadow: none;
+.search-form__button {
+  height: 64px;               /* match container height */
+  min-width: 168px;
+  padding: 0 32px;
+
+  border: none;
+  border-radius: 100px;       /* rounded on BOTH sides */
+  background-color: #2f71e5;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.search__input::placeholder {
+
+.search-form__input::placeholder {
   color: #b6bcbf;
 }
 
-.search__button {
+/* .search-form__button {
   min-width: 168px;
+  height: 64px;
   padding: 16px 32px;
   border: none;
-  border-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
   background-color: #2f71e5;
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin: 0;
-}
+} */
 
-.search__button:hover {
+.search-form__button:hover {
   background-color: #347eff;
 }
 
-.search__button:active {
+.search-form__button:active {
   background-color: #2a65cc;
 }
 
-.search__button:disabled {
+.search-form__button:disabled {
   background-color: #e6e8eb;
   color: #b6bcbf;
   cursor: not-allowed;
@@ -99,11 +131,14 @@
 }
 
 .search-results {
-  max-width: 100%;
-  margin: 40px auto 0;
-  padding: 0 40px;
+  width: 100%;
   background-color: #f5f6f7;
-  padding: 40px 0 80px;
+}
+
+.search-results__content {
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 80px 16px;
 }
 
 .search-results__title {
@@ -113,13 +148,6 @@
   line-height: 46px;
   color: #1a1b22;
   margin-bottom: 64px;
-}
-
-.search-results__content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
 }
 
 .show-more-button {
@@ -139,59 +167,6 @@
 
 .show-more-button:hover {
   opacity: 0.8;
-}
-
-.search-form {
-  width: 100%;
-  max-width: 608px;
-  margin: 0 auto;
-  display: flex;
-  background-color: #ffffff;
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.search-form__input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  padding: 16px 24px;
-  font-size: 16px;
-  background-color: transparent;
-  border-top-left-radius: 100px;
-  border-bottom-left-radius: 100px;
-}
-
-.search-form__input::placeholder {
-  color: #b6bcbf;
-}
-
-.search-form__button {
-  min-width: 168px;
-  padding: 16px 32px;
-  border: none;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  background-color: #2f71e5;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.search-form__button:hover {
-  background-color: #347eff;
-}
-
-.search-form__button:active {
-  background-color: #2a65cc;
-}
-
-.search-form__button:disabled {
-  background-color: #e6e8eb;
-  color: #b6bcbf;
-  cursor: not-allowed;
 }
 
 .no-results {
@@ -221,15 +196,19 @@
 
 @media screen and (max-width: 767px) {
   .hero {
-    margin-top: 0;
-    padding: 0 16px 32px;
-    text-align: left;
+    min-height: 536px;
+    padding: 0;
+    align-items: stretch;
+    position: relative;
   }
 
   .hero__content {
-    max-width: 288px;
-    margin: 0;
-    padding-top: 30px;
+    width: 100%;
+    max-width: none;
+    padding: 86px 16px 32px;
+    text-align: left;
+    z-index: 1;
+    position: relative;
   }
 
   .hero__title {
@@ -241,57 +220,62 @@
   .hero__subtitle {
     font-size: 18px;
     line-height: 24px;
-    margin: 0 0 122px;
+    margin: 0 0 32px;
     max-width: 288px;
   }
 
   .search-form {
-    max-width: 288px;
+    width: 100%;
+    max-width: none;
     margin: 0;
     background: transparent;
     border-radius: 0;
-    overflow: visible;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: auto;
+    padding: 0;
+    overflow: visible;
   }
 
   .search-form__input {
     height: 56px;
     width: 100%;
     border-radius: 100px;
-    background: #fff;
+    background-color: #ffffff;
     padding: 0 16px;
-    box-sizing: border-box;
+    line-height: 56px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
   }
 
   .search-form__button {
+    height: 56px;
     width: 100%;
     min-width: 0;
-    height: 56px;
+    padding: 0 16px;
     border-radius: 100px;
-  }
-
-  .search-results {
-    margin: 0;
-    padding: 32px 0 80px;
+    background-color: #2f71e5;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   .search-results__content {
-    padding: 0 16px;
+    padding: 32px 16px 24px; 
   }
 
   .search-results__title {
     font-size: 30px;
     line-height: 34px;
-    margin-bottom: 24px;
+    margin: 0 0 24px;
   }
 
   .show-more-button {
-    width: 288px;
+    width: 288px;     
     height: 56px;
     margin: 24px auto 0;
+    border-radius: 100px;
     font-size: 18px;
   }
 }
-

@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { getNews } from "../../utils/newsApi";
-import Main from "../Main/Main";
 import About from "../About/About";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
-import notFoundImg from "../../assets/not-found_v1.png";
+import notFoundImg from "../../assets/notfoundpicnea.svg";
 import "./Home.css";
 
-function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
+function Home({ loggedIn, savedArticles, onSaveArticle }) {
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState("");
   const [articles, setArticles] = useState([]);
@@ -25,7 +24,6 @@ function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
     }
 
     setKeywordSubmitted(true);
-    onSearch();
 
     setError("");
     setApiError("");
@@ -55,15 +53,13 @@ function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
 
   return (
     <>
-      <Main>
-        <section className="hero">
-          <div className="hero__content">
-            <h1 className="hero__title">What's going on in the world?</h1>
-            <p className="hero__subtitle">
-              Find the latest news on any topic and save them in your personal
-              account.
-            </p>
-          </div>
+      <section className="hero">
+        <div className="hero__content">
+          <h1 className="hero__title">What's going on in the world?</h1>
+          <p className="hero__subtitle">
+            Find the latest news on any topic and save them in your personal
+            account.
+          </p>
 
           <form className="search-form" onSubmit={handleSubmit} noValidate>
             <input
@@ -81,8 +77,8 @@ function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
           </form>
 
           {error && <p className="search__error">{error}</p>}
-        </section>
-      </Main>
+        </div>
+      </section>
 
       {isLoading && <Preloader />}
 
@@ -118,7 +114,11 @@ function Home({ onSearch, loggedIn, savedArticles, onSaveArticle, }) {
             />
 
             {visibleCount < articles.length && (
-              <button className="show-more-button" onClick={handleShowMore}>
+              <button
+                type="button"
+                className="show-more-button"
+                onClick={handleShowMore}
+              >
                 Show more
               </button>
             )}

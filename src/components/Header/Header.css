@@ -2,6 +2,10 @@
   width: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 10;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  position: absolute;
 }
 
 .header--dark {
@@ -27,13 +31,14 @@
 .header--transparent {
   background: transparent;
   color: #ffffff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header__logo {
   font-family: "Roboto Slab", serif;
   font-size: 20px;
   font-weight: 700;
+  text-decoration: none;
+  color: inherit;
 }
 
 .header__nav {
@@ -105,7 +110,6 @@
   filter: brightness(0) invert(1);
 }
 
-/* ===== Mobile header ===== */
 @media screen and (max-width: 767px) {
   .header__container {
     padding: 16px;
@@ -129,13 +133,11 @@
     padding: 0;
     background: transparent;
     cursor: pointer;
-
     background-image:
       linear-gradient(currentColor, currentColor),
-      linear-gradient(currentColor, currentColor),
       linear-gradient(currentColor, currentColor);
-    background-size: 22px 2px, 22px 2px, 22px 2px;
-    background-position: center 6px, center 12px, center 18px;
+    background-size: 22px 2px, 22px 2px;
+    background-position: center 6px, center 14px;
     background-repeat: no-repeat;
   }
 
@@ -205,6 +207,15 @@
     font-weight: 500;
   }
 
+  .header--transparent .header__menu-button,
+  .header--dark .header__menu-button {
+    color: #fff; 
+  }
+
+  .header--light .header__menu-button {
+    color: #1a1b22;
+  }
+
   .header__mobile-signin {
     margin-top: 24px;
     width: 288px;
@@ -242,8 +253,8 @@
 }
 
 @media screen and (max-width: 767px) {
-  .header__menu-button,
-  .header__mobile {
+  .header__menu-button {
     display: block;
   }
 }
+

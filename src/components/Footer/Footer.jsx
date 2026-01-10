@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import "./Footer.css";
 
 import githubIcon from "../../assets/github.svg";
-import linkedinIcon from "../../assets/LinkedIn.png";
+import linkedinIcon from "../../assets/linkedIniconnea.svg";
 
 function Footer() {
   return (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./NewsCard.css";
 
-import normalBookmark from "../../assets/NormalBookmarkNEA.png";
-import hoverBookmark from "../../assets/HoverbookmarkNEA.png";
-import markedBookmark from "../../assets/MarkedbookmarkNEA.png";
+import normalBookmark from "../../assets/normalbookmarknea.svg";
+import hoverBookmark from "../../assets/hoverbookmarknea.svg";
+import markedBookmark from "../../assets/markedbookmarknea.svg";
 
 import trashIcon from "../../assets/trashiconNE.svg";
 import trashIconHover from "../../assets/trashiconhoverNE.svg";
@@ -15,7 +15,7 @@ function NewsCard({
   onSaveArticle,
   onRemoveArticle,
   isSavedPage = false,
-  currentKeyword = "", 
+  currentKeyword = "",
 }) {
   const title = article.title || "";
   const description = article.description || article.text || "";
@@ -30,21 +30,32 @@ function NewsCard({
     article.searchTerm ||
     "";
 
-  const formattedDate = dateRaw
-    ? new Date(dateRaw).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "";
+  const url = article.url || article.link || "#";
 
   const [hovered, setHovered] = useState(false);
 
-  const isSaved = savedArticles.some(
-    (item) => item.title === article.title
-  );
+  const isSaved = savedArticles.some((item) => item.title === article.title);
 
-  function handleIconClick() {
+  const dateObj = dateRaw ? new Date(dateRaw) : null;
+
+  const formattedDate =
+    dateObj && !Number.isNaN(dateObj.getTime())
+      ? dateObj.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : "";
+
+  const dateTime =
+    dateObj && !Number.isNaN(dateObj.getTime())
+      ? dateObj.toISOString().slice(0, 10)
+      : "";
+
+  function handleIconClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (isSavedPage) {
       onRemoveArticle?.(article);
       return;
@@ -71,46 +82,58 @@ function NewsCard({
 
   return (
     <article className="news-card">
-      <div className="news-card__image-wrapper">
-        {isSavedPage && keyword && (
-          <span className="news-card__keyword">{keyword}</span>
-        )}
-        
-        {image && <img src={image} alt={title} className="news-card__image" />}
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="news-card__link"
+      >
+        <div className="news-card__image-wrapper">
+          {isSavedPage && keyword && (
+            <span className="news-card__keyword">{keyword}</span>
+          )}
 
-        <button
-          type="button"
-          className={`news-card__bookmark ${
-            !isSavedPage && !loggedIn ? "news-card__bookmark_disabled" : ""
-          }`}
-          onClick={handleIconClick}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          aria-label={isSavedPage ? "Remove from saved" : "Save article"}
-        >
-          <img
-            src={getIconSrc()}
-            alt=""
-            className="news-card__bookmark-icon"
-          />
-        </button>
+          {image && <img src={image} alt={title} className="news-card__image" />}
+        </div>
 
-        {showTooltip && (
-          <div className="news-card__tooltip">{tooltipText}</div>
-        )}
-      </div>
+        <div className="news-card__content">
+          {formattedDate && (
+            <time className="news-card__date" dateTime={dateTime}>
+              {formattedDate}
+            </time>
+          )}
 
-      <div className="news-card__content">
-        {formattedDate && <p className="news-card__date">{formattedDate}</p>}
-        <h3 className="news-card__title">{title}</h3>
-        <p className="news-card__text">{description}</p>
-        <p className="news-card__source">{sourceName}</p>
-      </div>
+          <h3 className="news-card__title">{title}</h3>
+          <p className="news-card__text">{description}</p>
+          <p className="news-card__source">{sourceName}</p>
+        </div>
+      </a>
+
+      <button
+        type="button"
+        className={`news-card__bookmark ${
+          !isSavedPage && !loggedIn ? "news-card__bookmark_disabled" : ""
+        }`}
+        onClick={handleIconClick}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        aria-label={isSavedPage ? "Remove from saved" : isSaved ? "Saved" : "Save article"}
+      >
+        <img
+          src={getIconSrc()}
+          alt={isSavedPage ? "Remove" : isSaved ? "Saved" : "Save"}
+          className="news-card__bookmark-icon"
+        />
+      </button>
+
+      {showTooltip && <div className="news-card__tooltip">{tooltipText}</div>}
     </article>
   );
 }
 
 export default NewsCard;
+
+
 
 
 

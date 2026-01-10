@@ -1,9 +1,18 @@
 .news-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 64px auto 0;
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+
   max-width: 1232px;
-  margin: 64px auto 0;
+}
+
+.news-card-list__item {
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (max-width: 767px) {

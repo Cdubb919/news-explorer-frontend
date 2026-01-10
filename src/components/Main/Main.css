@@ -1,4 +1,4 @@
-.search-form {
+/* .search-form {
   display: flex;
   background: white;
   border-radius: 100px;
@@ -8,9 +8,9 @@
   max-width: 608px;
   margin: 0 auto;
   overflow: hidden;
-}
+} */
 
-.search-form__input {
+/* .search-form__input {
   flex: 1;
   border: none;
   outline: none;
@@ -28,19 +28,20 @@
   padding: 0 32px;
   width: 168px;
   cursor: pointer;
-}
+} */
 
 .main {
   width: 100%;
-  padding: 0 24px;
+  padding: 0;
   box-sizing: border-box;
   background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   position: relative;
   z-index: 1;
 }
+
 
 

@@ -1,12 +1,12 @@
 import "./About.css";
-import placeholderImg from "../../assets/placeholder-img.svg";
+import authorImg from "../../assets/authorimg.jpg";
 
 function About() {
   return (
     <section className="about">
       <div className="about__container">
         <img
-          src={placeholderImg}
+          src={authorImg}
           alt="Author image"
           className="about__image"
         />

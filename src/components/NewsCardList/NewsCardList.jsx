@@ -11,21 +11,32 @@ function NewsCardList({
   currentKeyword = "",
 }) {
   return (
-    <section className="news-card-list">
+    <ul className="news-card-list">
       {articles.map((article, index) => (
-        <NewsCard
-          key={article._id || article.url || article.link || article.title || index}
-          article={article}
-          loggedIn={loggedIn}
-          savedArticles={savedArticles}
-          onSaveArticle={onSaveArticle}
-          onRemoveArticle={onRemoveArticle}
-          isSavedPage={isSavedPage}
-          currentKeyword={currentKeyword}
-        />
+        <li
+          className="news-card-list__item"
+          key={
+            article._id ||
+            article.url ||
+            article.link ||
+            article.title ||
+            index
+          }
+        >
+          <NewsCard
+            article={article}
+            loggedIn={loggedIn}
+            savedArticles={savedArticles}
+            onSaveArticle={onSaveArticle}
+            onRemoveArticle={onRemoveArticle}
+            isSavedPage={isSavedPage}
+            currentKeyword={currentKeyword}
+          />
+        </li>
       ))}
-    </section>
+    </ul>
   );
 }
 
 export default NewsCardList;
+

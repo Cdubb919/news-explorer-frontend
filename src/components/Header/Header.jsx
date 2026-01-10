@@ -27,9 +27,10 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
       className={`header ${isHome ? "header--transparent" : "header--light"}`}
     >
       <div className="header__container">
-        <h1 className="header__logo">NewsExplorer</h1>
+        <NavLink to="/" className="header__logo" onClick={closeMenu}>
+          NewsExplorer
+        </NavLink>
 
-        {/* Desktop nav (hidden on mobile via CSS) */}
         <nav className="header__nav">
           <NavLink
             to="/"
@@ -67,7 +68,6 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
           )}
         </nav>
 
-        {/* Mobile hamburger (shown on mobile via CSS) */}
         <button
           type="button"
           className="header__menu-button"
@@ -75,10 +75,14 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
           onClick={() => setMenuOpen(true)}
         />
 
-        {/* Mobile overlay menu */}
-        <div className={`header__mobile ${menuOpen ? "header__mobile_open" : ""}`}>
+        <div
+          className={`header__mobile ${menuOpen ? "header__mobile_open" : ""}`}
+        >
           <div className="header__mobile-top">
-            <h1 className="header__logo">NewsExplorer</h1>
+            <NavLink to="/" className="header__logo" onClick={closeMenu}>
+              NewsExplorer
+            </NavLink>
+
             <button
               type="button"
               className="header__close-button"
@@ -92,7 +96,9 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
               to="/"
               onClick={closeMenu}
               className={({ isActive }) =>
-                `header__mobile-link ${isActive ? "header__mobile-link_active" : ""}`
+                `header__mobile-link ${
+                  isActive ? "header__mobile-link_active" : ""
+                }`
               }
             >
               Home
@@ -103,7 +109,9 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
                 to="/saved-news"
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `header__mobile-link ${isActive ? "header__mobile-link_active" : ""}`
+                  `header__mobile-link ${
+                    isActive ? "header__mobile-link_active" : ""
+                  }`
                 }
               >
                 Saved articles
@@ -132,4 +140,3 @@ function Header({ loggedIn, userName, onSignIn, onSignOut }) {
 }
 
 export default Header;
-
