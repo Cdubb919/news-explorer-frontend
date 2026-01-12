@@ -8,8 +8,6 @@ import Home from "../Home/Home";
 import SavedNews from "../SavedNews/SavedNews";
 import Main from "../Main/Main";
 
-import "./App.css";
-
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import SuccessModal from "../SuccessModal/SuccessModal";
