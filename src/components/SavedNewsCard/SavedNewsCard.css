@@ -1,6 +1,3 @@
-/* SavedNewsCard.css */
-
-/* Card container */
 .saved-news__card {
   display: flex;
   flex-direction: column;
@@ -12,21 +9,18 @@
   position: relative;
 }
 
-/* Image wrapper */
 .saved-news__image-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
-/* News image */
 .saved-news__image {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* Keyword tag */
 .saved-news__tag-label {
   position: absolute;
   top: 16px;
@@ -41,38 +35,33 @@
   z-index: 2;
 }
 
-/* Trash icon wrapper */
 .saved-news__trash-icon-wrapper {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: none;       /* remove any background */
+  background: none;       
   padding: 0;
   display: inline-block;
   z-index: 2;
   cursor: pointer;
 }
 
-/* Trash icon image */
 .saved-news__trash-icon {
   display: block;
-  width: 24px;            /* adjust size as needed */
+  width: 24px;            
   height: 24px;
-  background: none;       /* ensure no background */
+  background: none;       
 }
 
-/* Optional hover effect */
 .saved-news__trash-icon-wrapper:hover .saved-news__trash-icon {
   transform: scale(1.1);
   transition: transform 0.2s ease;
 }
 
-/* Content section */
 .saved-news__content {
   padding: 16px 20px;
 }
 
-/* Headline */
 .saved-news__headline {
   font-size: 20px;
   font-weight: 700;
@@ -80,7 +69,6 @@
   color: #1a1b22;
 }
 
-/* Description */
 .saved-news__description {
   font-size: 16px;
   margin: 0;

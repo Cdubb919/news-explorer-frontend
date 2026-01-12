@@ -39,24 +39,21 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-
-  background: transparent;     /* important */
-  border-radius: 0;            /* not a single pill container anymore */
-  overflow: visible;           /* important */
-  gap: 8px;                    /* creates space so left rounding shows */
+  background: transparent;    
+  border-radius: 0;           
+  overflow: visible;           
+  gap: 8px;                   
   height: auto;
 }
 
-/* DESKTOP/TABLET: no internal white padding, button flush inside pill */
 .search-form {
   width: 100%;
   max-width: 608px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-
   height: 64px;
-  padding: 0;                 /* removes the white “frame” */
+  padding: 0;                 
   background-color: #ffffff;
   border-radius: 100px;
   overflow: hidden;
@@ -65,27 +62,25 @@
 
 .search-form__input {
   flex: 1;
-  height: 64px;               /* match container height */
+  height: 64px;               
   border: none;
   outline: none;
 
   padding: 0 24px;
   font-size: 16px;
 
-  background: transparent;    /* container provides the white */
-  border-radius: 100px;       /* keeps left side pill-smooth */
+  background: transparent;    
+  border-radius: 100px;      
 }
 
 .search-form__button {
-  height: 64px;               /* match container height */
+  height: 64px;             
   min-width: 168px;
   padding: 0 32px;
-
   border: none;
-  border-radius: 100px;       /* rounded on BOTH sides */
+  border-radius: 100px;      
   background-color: #2f71e5;
   color: #ffffff;
-
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -95,20 +90,6 @@
 .search-form__input::placeholder {
   color: #b6bcbf;
 }
-
-/* .search-form__button {
-  min-width: 168px;
-  height: 64px;
-  padding: 16px 32px;
-  border: none;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  background-color: #2f71e5;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-} */
 
 .search-form__button:hover {
   background-color: #347eff;

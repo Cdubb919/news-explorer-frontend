@@ -119,7 +119,7 @@
   }
 
   .news-card__image {
-    height: 196px; /* closer to screenshot crop */
+    height: 196px; 
   }
 
   .news-card__content {

@@ -7,7 +7,6 @@
 .about__container {
   max-width: 1200px;
   margin: 0 auto;
-  /* padding: 0 40px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +20,6 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  /* margin-left: 80px; */
 }
 
 .about__content {

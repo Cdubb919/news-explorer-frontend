@@ -15,10 +15,8 @@ export default function SavedNewsCard({ article, onRemoveArticle }) {
           className="saved-news__image"
         />
 
-        {/* Keyword tag */}
         <span className="saved-news__tag-label">{article.tag}</span>
 
-        {/* Trash icon */}
         <div
           className="saved-news__trash-icon-wrapper"
           onMouseEnter={() => setHovered(true)}
