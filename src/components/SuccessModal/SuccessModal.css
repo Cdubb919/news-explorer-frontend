@@ -1,0 +1,15 @@
+.modal__submit_type_success {
+  display: none;
+}
+
+.success__signin {
+  color: #2f71e5;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.success__signin:hover {
+  text-decoration: underline;
+}

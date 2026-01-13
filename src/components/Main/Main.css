@@ -1,0 +1,15 @@
+.main {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+
+
