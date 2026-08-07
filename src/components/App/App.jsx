@@ -14,7 +14,7 @@ import SuccessModal from "../SuccessModal/SuccessModal";
 
 function App() {
   const initialToken = localStorage.getItem("token");
-  const initialUserName = localStorage.getItem("userName") || "Elise";
+  const initialUserName = localStorage.getItem("userName") || "";
   const initialSavedArticles = (() => {
     try {
       const raw = localStorage.getItem("savedArticles");
@@ -27,29 +27,39 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(initialToken));
   const [activeModal, setActiveModal] = useState(null);
   const [savedArticles, setSavedArticles] = useState(initialSavedArticles);
-  const [userName] = useState(initialUserName);
+  const [userName, setUserName] = useState(initialUserName);
 
   function closeModal() {
     setActiveModal(null);
   }
 
-  function handleLogin() {
-    const token = "dummy-token";
-    localStorage.setItem("token", token);
-    localStorage.setItem("userName", userName);
+  function handleLogin(userData) {
+  const token = "dummy-token";
 
-    setIsLoggedIn(true);
-    closeModal();
-  }
+  const emailName = userData?.email
+    ? userData.email.split("@")[0]
+    : "User";
+
+  const formattedUserName =
+    emailName.charAt(0).toUpperCase() + emailName.slice(1);
+
+  localStorage.setItem("token", token);
+  localStorage.setItem("userName", formattedUserName);
+
+  setUserName(formattedUserName);
+  setIsLoggedIn(true);
+  closeModal();
+}
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("savedArticles");
+  localStorage.removeItem("token");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("savedArticles");
 
-    setIsLoggedIn(false);
-    setSavedArticles([]); 
-  }
+  setIsLoggedIn(false);
+  setUserName("");
+  setSavedArticles([]);
+}
 
   function handleRegisterSuccess() {
     closeModal();
@@ -57,30 +67,32 @@ function App() {
   }
 
   function handleSaveArticle(article, keyword) {
+    const normalizedArticle = {
+      ...article,
+      url: article.url || article.link || article.title || "",
+      keyword:
+        keyword ||
+        article.keyword ||
+        article.tag ||
+        article.searchKeyword ||
+        article.searchTerm ||
+        "",
+    };
+
     setSavedArticles((prev) => {
-      const alreadySaved = prev.some((item) => item.title === article.title);
-      if (alreadySaved) return prev;
+      if (prev.some((item) => item.url === normalizedArticle.url)) return prev;
 
-      const articleWithKeyword = {
-        ...article,
-        keyword:
-          keyword ||
-          article.keyword ||
-          article.tag ||
-          article.searchKeyword ||
-          article.searchTerm ||
-          "",
-      };
-
-      const updated = [...prev, articleWithKeyword];
+      const updated = [...prev, normalizedArticle];
       localStorage.setItem("savedArticles", JSON.stringify(updated));
       return updated;
     });
   }
 
   function handleRemoveArticle(article) {
+    const uniqueUrl = article.url || article.link || article.title || "";
+
     setSavedArticles((prev) => {
-      const updated = prev.filter((item) => item.title !== article.title);
+      const updated = prev.filter((item) => item.url !== uniqueUrl);
       localStorage.setItem("savedArticles", JSON.stringify(updated));
       return updated;
     });
@@ -104,6 +116,7 @@ function App() {
                 loggedIn={isLoggedIn}
                 savedArticles={savedArticles}
                 onSaveArticle={handleSaveArticle}
+                onRemoveArticle={handleRemoveArticle}
               />
             }
           />
@@ -147,4 +160,3 @@ function App() {
 }
 
 export default App;
-

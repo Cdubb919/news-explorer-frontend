@@ -129,6 +129,43 @@
   text-align: center;
 }
 
+.modal__password-title {
+  display: block;
+  margin-top: 8px;
+  color: #2f2f2f;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.modal__password-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.modal__requirement {
+  color: #b6bcbf;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.modal__requirement::before {
+  content: "○";
+  display: inline-block;
+  width: 16px;
+}
+
+.modal__requirement_met {
+  color: #2f9e44;
+}
+
+.modal__requirement_met::before {
+  content: "✓";
+}
+
 @media screen and (max-width: 767px) {
   .modal {
     padding: 0;

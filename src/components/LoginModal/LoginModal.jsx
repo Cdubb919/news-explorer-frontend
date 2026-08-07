@@ -1,14 +1,27 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-function LoginModal({ isOpen, onClose, onLogin, onSwitchToRegister }) {
+function LoginModal({
+  isOpen,
+  onClose,
+  onLogin,
+  onSwitchToRegister,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isFormFilled = email.trim() && password.trim();
+
+  const isFormFilled = Boolean(email.trim() && password.trim());
 
   function handleSubmit(e) {
     e.preventDefault();
-    onLogin();
+
+    onLogin({
+      email: email.trim(),
+      password,
+    });
+
+    setEmail("");
+    setPassword("");
   }
 
   return (

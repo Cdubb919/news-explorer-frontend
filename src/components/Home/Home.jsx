@@ -6,7 +6,7 @@ import Preloader from "../Preloader/Preloader";
 import notFoundImg from "../../assets/notfoundpicnea.svg";
 import "./Home.css";
 
-function Home({ loggedIn, savedArticles, onSaveArticle }) {
+function Home({ loggedIn, savedArticles, onSaveArticle, onRemoveArticle }) {
   const [keyword, setKeyword] = useState("");
   const [error, setError] = useState("");
   const [articles, setArticles] = useState([]);
@@ -36,9 +36,7 @@ function Home({ loggedIn, savedArticles, onSaveArticle }) {
         setArticles(data.articles || []);
       })
       .catch(() => {
-        setApiError(
-          "Sorry, something went wrong during the request. Please try again later."
-        );
+        setApiError("Sorry, something went wrong during the request. Please try again later.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -57,8 +55,7 @@ function Home({ loggedIn, savedArticles, onSaveArticle }) {
         <div className="hero__content">
           <h1 className="hero__title">What's going on in the world?</h1>
           <p className="hero__subtitle">
-            Find the latest news on any topic and save them in your personal
-            account.
+            Find the latest news on any topic and save them in your personal account.
           </p>
 
           <form className="search-form" onSubmit={handleSubmit} noValidate>
@@ -71,9 +68,7 @@ function Home({ loggedIn, savedArticles, onSaveArticle }) {
               required
             />
 
-            <button className="search-form__button" type="submit">
-              Search
-            </button>
+            <button className="search-form__button" type="submit">Search</button>
           </form>
 
           {error && <p className="search__error">{error}</p>}
@@ -87,11 +82,7 @@ function Home({ loggedIn, savedArticles, onSaveArticle }) {
       {!isLoading && articles.length === 0 && keywordSubmitted && (
         <section className="search-results">
           <div className="search-results__content no-results">
-            <img
-              src={notFoundImg}
-              alt="Nothing found"
-              className="no-results__image"
-            />
+            <img src={notFoundImg} alt="Nothing found" className="no-results__image" />
             <h2 className="no-results__title">Nothing found</h2>
             <p className="no-results__subtitle">
               Sorry, but nothing matched your search terms.
@@ -110,15 +101,12 @@ function Home({ loggedIn, savedArticles, onSaveArticle }) {
               loggedIn={loggedIn}
               savedArticles={savedArticles}
               onSaveArticle={onSaveArticle}
+              onRemoveArticle={onRemoveArticle}
               currentKeyword={keyword}
             />
 
             {visibleCount < articles.length && (
-              <button
-                type="button"
-                className="show-more-button"
-                onClick={handleShowMore}
-              >
+              <button type="button" className="show-more-button" onClick={handleShowMore}>
                 Show more
               </button>
             )}

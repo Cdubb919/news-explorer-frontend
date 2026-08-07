@@ -22,7 +22,6 @@ function NewsCard({
   const image = article.urlToImage || article.image || "";
   const dateRaw = article.publishedAt || article.date || "";
   const sourceName = article.source?.name || article.source || "";
-
   const keyword =
     article.keyword ||
     article.tag ||
@@ -30,14 +29,13 @@ function NewsCard({
     article.searchTerm ||
     "";
 
-  const url = article.url || article.link || "#";
-
   const [hovered, setHovered] = useState(false);
 
-  const isSaved = savedArticles.some((item) => item.title === article.title);
+  const uniqueId = article.url || article.link || article.title || "";
+
+  const isSaved = savedArticles.some((item) => item.url === uniqueId);
 
   const dateObj = dateRaw ? new Date(dateRaw) : null;
-
   const formattedDate =
     dateObj && !Number.isNaN(dateObj.getTime())
       ? dateObj.toLocaleDateString("en-US", {
@@ -46,26 +44,26 @@ function NewsCard({
           day: "numeric",
         })
       : "";
-
   const dateTime =
     dateObj && !Number.isNaN(dateObj.getTime())
       ? dateObj.toISOString().slice(0, 10)
       : "";
 
   function handleIconClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-    if (isSavedPage) {
-      onRemoveArticle?.(article);
-      return;
-    }
+  if (!loggedIn) return;
 
-    if (!loggedIn) return;
+  const uniqueUrl = article.url || article.link || article.title || "";
 
-    if (isSaved) onRemoveArticle?.(article);
-    else onSaveArticle?.(article, currentKeyword);
+  if (savedArticles.some((item) => item.url === uniqueUrl)) {
+    const savedArticleObj = savedArticles.find((item) => item.url === uniqueUrl);
+    if (savedArticleObj) onRemoveArticle(savedArticleObj);
+  } else {
+    onSaveArticle?.(article, currentKeyword);
   }
+}
 
   function getIconSrc() {
     if (isSavedPage) return hovered ? trashIconHover : trashIcon;
@@ -77,13 +75,12 @@ function NewsCard({
   const tooltipText = isSavedPage
     ? "Remove from saved"
     : "Sign in to save articles";
-
   const showTooltip = hovered && (isSavedPage || !loggedIn);
 
   return (
     <article className="news-card">
       <a
-        href={url}
+        href={article.url || article.link || "#"}
         target="_blank"
         rel="noreferrer"
         className="news-card__link"
@@ -92,8 +89,9 @@ function NewsCard({
           {isSavedPage && keyword && (
             <span className="news-card__keyword">{keyword}</span>
           )}
-
-          {image && <img src={image} alt={title} className="news-card__image" />}
+          {image && (
+            <img src={image} alt={title} className="news-card__image" />
+          )}
         </div>
 
         <div className="news-card__content">
@@ -102,7 +100,6 @@ function NewsCard({
               {formattedDate}
             </time>
           )}
-
           <h3 className="news-card__title">{title}</h3>
           <p className="news-card__text">{description}</p>
           <p className="news-card__source">{sourceName}</p>
@@ -111,13 +108,13 @@ function NewsCard({
 
       <button
         type="button"
-        className={`news-card__bookmark ${
-          !isSavedPage && !loggedIn ? "news-card__bookmark_disabled" : ""
-        }`}
+        className={`news-card__bookmark ${!isSavedPage && !loggedIn ? "news-card__bookmark_disabled" : ""}`}
         onClick={handleIconClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        aria-label={isSavedPage ? "Remove from saved" : isSaved ? "Saved" : "Save article"}
+        aria-label={
+          isSavedPage ? "Remove from saved" : isSaved ? "Saved" : "Save article"
+        }
       >
         <img
           src={getIconSrc()}
@@ -132,9 +129,3 @@ function NewsCard({
 }
 
 export default NewsCard;
-
-
-
-
-
-
